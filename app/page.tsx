@@ -125,6 +125,7 @@ const initialProgress = {
 
 export default function Home() {
   const [progress, setProgress] = useState(initialProgress);
+  const [isStarting, setIsStarting] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -139,6 +140,7 @@ export default function Home() {
         if (isMounted) {
           setProgress(data);
         }
+      } catch {
       } catch (error) {
         if (isMounted) {
           setProgress((current) => ({ ...current, status: "failed" }));
@@ -147,6 +149,7 @@ export default function Home() {
     };
 
     fetchProgress();
+    const interval = setInterval(fetchProgress, 500);
     const interval = setInterval(fetchProgress, 2500);
 
     return () => {
@@ -154,6 +157,22 @@ export default function Home() {
       clearInterval(interval);
     };
   }, []);
+
+  const handleStartScan = async () => {
+    try {
+      setIsStarting(true);
+      const response = await fetch("/api/scan/start", { method: "POST" });
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
+      setProgress(data);
+    } catch {
+      setProgress((current) => ({ ...current, status: "failed" }));
+    } finally {
+      setIsStarting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -172,8 +191,16 @@ export default function Home() {
               <h1 className="text-xl font-semibold">UK Product Finder</h1>
             </div>
           </div>
-          <button className="rounded-full border border-cyan-300/30 px-4 py-2 text-sm text-cyan-100 transition hover:border-cyan-300/70">
-            Run new scan
+          <button
+            className="rounded-full border border-cyan-300/30 px-4 py-2 text-sm text-cyan-100 transition hover:border-cyan-300/70 disabled:cursor-not-allowed disabled:opacity-60"
+            onClick={handleStartScan}
+            disabled={isStarting || progress.status === "running"}
+          >
+            {progress.status === "running"
+              ? "Scan running"
+              : isStarting
+                ? "Starting scan..."
+                : "Run new scan"}
           </button>
         </header>
 
