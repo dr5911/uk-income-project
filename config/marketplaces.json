@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ebay_uk",
+    "name": "eBay UK",
+    "url": "https://www.ebay.co.uk/sch/i.html?_nkw=wireless+earbuds&LH_Sold=1&LH_Complete=1",
+    "selectors": {
+      "item": ".s-item",
+      "title": ".s-item__title",
+      "price": ".s-item__price",
+      "link": ".s-item__link",
+      "sold": ".s-item__hotness"
+    }
+  }
+]

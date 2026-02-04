@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "scrape": "node src/scraper.js"
   },
   "dependencies": {
     "next": "16.0.7",
+    "playwright": "^1.54.2",
     "react": "19.2.1",
     "react-dom": "19.2.1"
   },
