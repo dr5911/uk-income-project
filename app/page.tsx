@@ -141,6 +141,7 @@ export default function Home() {
           setProgress(data);
         }
       } catch {
+      } catch (error) {
         if (isMounted) {
           setProgress((current) => ({ ...current, status: "failed" }));
         }
@@ -149,6 +150,7 @@ export default function Home() {
 
     fetchProgress();
     const interval = setInterval(fetchProgress, 500);
+    const interval = setInterval(fetchProgress, 2500);
 
     return () => {
       isMounted = false;
