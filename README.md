@@ -38,3 +38,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## eBay UK listing automation (Playwright)
+
+A helper script is included at `scripts/ebay-listing-playwright.mjs` to automate updating and publishing a draft listing.
+
+### Run
+
+1. Install Playwright:
+   - `npm i -D playwright`
+   - `npx playwright install chromium`
+2. Run script:
+   - `node scripts/ebay-listing-playwright.mjs`
+
+The script will pause if eBay sign-in is required, then continue after you press Enter in the terminal.
